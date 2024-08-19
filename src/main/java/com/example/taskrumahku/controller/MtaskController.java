@@ -10,39 +10,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/mtasks")
+@RequestMapping("/api/tasks")
 public class MtaskController {
 
+    private final MtaskService mtaskService;
+
     @Autowired
-    private MtaskService mtaskService;
+    public MtaskController(MtaskService mtaskService) {
+        this.mtaskService = mtaskService;
+    }
 
+    // Endpoint untuk membuat task baru
     @PostMapping
-    public ResponseEntity<Mtask> createMtask(@RequestBody Mtask mtask) {
-        return new ResponseEntity<>(mtaskService.createMtask(mtask), HttpStatus.CREATED);
+    public ResponseEntity<Mtask> createTask(@RequestBody Mtask task) {
+        Mtask createdTask = mtaskService.createTask(task);
+        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 
+    // Endpoint untuk memperbarui task berdasarkan ID
     @PutMapping("/{id}")
-    public ResponseEntity<Mtask> updateMtask(@PathVariable Long id, @RequestBody Mtask mtask) {
-        Mtask updatedMtask = mtaskService.updateMtask(id, mtask);
-        if (updatedMtask != null) {
-            return new ResponseEntity<>(updatedMtask, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Mtask> updateTask(@PathVariable Long id, @RequestBody Mtask taskDetails) {
+        Mtask updatedTask = mtaskService.updateTask(id, taskDetails);
+        return ResponseEntity.ok(updatedTask);
     }
 
+    // Endpoint untuk mendapatkan semua task
     @GetMapping
-    public ResponseEntity<List<Mtask>> getAllMtasks() {
-        return new ResponseEntity<>(mtaskService.getAllMtasks(), HttpStatus.OK);
+    public ResponseEntity<List<Mtask>> getAllTasks() {
+        List<Mtask> tasks = mtaskService.getAllTasks();
+        return ResponseEntity.ok(tasks);
     }
 
+    // Endpoint untuk mendapatkan task berdasarkan status
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<Mtask>> getMtasksByStatus(@PathVariable String status) {
-        return new ResponseEntity<>(mtaskService.getMtasksByStatus(status), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMtask(@PathVariable Long id) {
-        mtaskService.deleteMtask(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<List<Mtask>> getTasksByStatus(@PathVariable String status) {
+        List<Mtask> tasks = mtaskService.getTasksByStatus(status);
+        return ResponseEntity.ok(tasks);
     }
 }
