@@ -23,7 +23,7 @@ public class MtaskService {
         return mtaskRepository.save(task);
     }
 
-    // get task yang sudah ada
+    // get task yg sudah ada
     public Mtask updateTask(Long id, Mtask taskDetails) {
         Mtask task = mtaskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task tidak ditemukan dengan id: " + id));
