@@ -2,28 +2,28 @@ package com.example.taskrumahku.controller;
 
 import com.example.taskrumahku.model.Mtask;
 import com.example.taskrumahku.service.MtaskService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.mockito.ArgumentMatchers.any;
+import org.mockito.cglib.core.Block;
+// import org.mockito.InjectMocks;
+// import org.mockito.Mock;
+// import org.mockito.MockitoAnnotations;
+// import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+// import org.springframework.test.web.servlet.MockMvc;
+// import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+// import static org.mockito.Mockito.when;
+// import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+// import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+// import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+// import static org.mockito.ArgumentMatchers.any;
 
 @WebMvcTest(MtaskController.class)
 public class MtaskControllerTest {
 
     private MockMvc mockMvc;
 
-    @Mock
+    Block
     private MtaskService mtaskService;
 
     @InjectMocks
@@ -41,7 +41,7 @@ public class MtaskControllerTest {
         mtask.setName("Test Mtask");
         mtask.setStatus("Pending");
 
-        when(mtaskService.createMtask(any(Mtask.class))).thenReturn(mtask);
+        ((Object) when(mtaskService.createMtask(any(Mtask.class)))).thenReturn(mtask);
 
         mockMvc.perform(post("/mtasks")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -49,5 +49,15 @@ public class MtaskControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("Test Mtask"))
                 .andExpect(jsonPath("$.status").value("Pending"));
+    }
+
+    private Object when(Mtask mtask) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'when'");
+    }
+
+    private Mtask any(Class<Mtask> class1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'any'");
     }
 }
