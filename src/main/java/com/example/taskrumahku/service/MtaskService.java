@@ -33,12 +33,12 @@ public class MtaskService {
         return mtaskRepository.save(task);
     }
 
-    // Mengambil semua task
+    // get semua task
     public List<Mtask> getAllTasks() {
         return mtaskRepository.findAll();
     }
 
-    // Mengambil task berdasarkan status
+    // get task by status
     public List<Mtask> getTasksByStatus(String status) {
         return mtaskRepository.findByStatus(status);
     }
