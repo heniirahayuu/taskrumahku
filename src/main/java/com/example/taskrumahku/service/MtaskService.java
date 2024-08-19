@@ -18,12 +18,12 @@ public class MtaskService {
         this.mtaskRepository = mtaskRepository;
     }
 
-    // Membuat task baru
+    // create task baru
     public Mtask createTask(Mtask task) {
         return mtaskRepository.save(task);
     }
 
-    // Memperbarui task yang sudah ada
+    // get task yang sudah ada
     public Mtask updateTask(Long id, Mtask taskDetails) {
         Mtask task = mtaskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task tidak ditemukan dengan id: " + id));
