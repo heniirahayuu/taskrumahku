@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    // Kelas ErrorResponse untuk format error response
+    // Kelas ErrorResponse
     public static class ErrorResponse {
         private int status;
         private String message;
