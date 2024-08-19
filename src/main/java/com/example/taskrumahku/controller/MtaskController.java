@@ -20,28 +20,28 @@ public class MtaskController {
         this.mtaskService = mtaskService;
     }
 
-    // Endpoint untuk membuat task baru
+    // edpuntuk membuat task baru
     @PostMapping
     public ResponseEntity<Mtask> createTask(@RequestBody Mtask task) {
         Mtask createdTask = mtaskService.createTask(task);
         return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 
-    // Endpoint untuk memperbarui task berdasarkan ID
+    // edp untuk memperbarui task berdasarkan ID
     @PutMapping("/{id}")
     public ResponseEntity<Mtask> updateTask(@PathVariable Long id, @RequestBody Mtask taskDetails) {
         Mtask updatedTask = mtaskService.updateTask(id, taskDetails);
         return ResponseEntity.ok(updatedTask);
     }
 
-    // Endpoint untuk mendapatkan semua task
+    // edp untuk mendapatkan semua task
     @GetMapping
     public ResponseEntity<List<Mtask>> getAllTasks() {
         List<Mtask> tasks = mtaskService.getAllTasks();
         return ResponseEntity.ok(tasks);
     }
 
-    // Endpoint untuk mendapatkan task berdasarkan status
+    // edp untuk mendapatkan task berdasarkan status
     @GetMapping("/status/{status}")
     public ResponseEntity<List<Mtask>> getTasksByStatus(@PathVariable String status) {
         List<Mtask> tasks = mtaskService.getTasksByStatus(status);
