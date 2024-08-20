@@ -20,11 +20,6 @@ public class MtaskController {
         this.mtaskService = mtaskService;
     }
 
-    // @PostMapping
-    // public ResponseEntity<Mtask> createTask(@RequestBody Mtask task) {
-    //     return ResponseEntity.ok(mtaskService.createTask(task));
-    // }
-
     @PostMapping
     public ResponseEntity<Mtask> createTask(@RequestBody Mtask task) {
         Mtask createdTask = mtaskService.createTask(task);
