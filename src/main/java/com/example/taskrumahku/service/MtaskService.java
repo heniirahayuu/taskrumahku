@@ -18,12 +18,10 @@ public class MtaskService {
         this.mtaskRepository = mtaskRepository;
     }
 
-    // Membuat task baru
     public Mtask createTask(Mtask task) {
         return mtaskRepository.save(task);
     }
 
-    // Memperbarui task yang sudah ada
     public Mtask updateTask(Long id, Mtask taskDetails) {
         Mtask task = mtaskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task tidak ditemukan dengan id: " + id));
@@ -33,12 +31,10 @@ public class MtaskService {
         return mtaskRepository.save(task);
     }
 
-    // Mengambil semua task
     public List<Mtask> getAllTasks() {
         return mtaskRepository.findAll();
     }
 
-    // Mengambil task berdasarkan status
     public List<Mtask> getTasksByStatus(String status) {
         return mtaskRepository.findByStatus(status);
     }

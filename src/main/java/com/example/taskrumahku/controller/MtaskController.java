@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/tasks")
 public class MtaskController {
 
     private final MtaskService mtaskService;
@@ -20,31 +20,29 @@ public class MtaskController {
         this.mtaskService = mtaskService;
     }
 
-    // Endpoint untuk membuat task baru
+    // @PostMapping
+    // public ResponseEntity<Mtask> createTask(@RequestBody Mtask task) {
+    //     return ResponseEntity.ok(mtaskService.createTask(task));
+    // }
+
     @PostMapping
     public ResponseEntity<Mtask> createTask(@RequestBody Mtask task) {
         Mtask createdTask = mtaskService.createTask(task);
         return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 
-    // Endpoint untuk memperbarui task berdasarkan ID
     @PutMapping("/{id}")
     public ResponseEntity<Mtask> updateTask(@PathVariable Long id, @RequestBody Mtask taskDetails) {
-        Mtask updatedTask = mtaskService.updateTask(id, taskDetails);
-        return ResponseEntity.ok(updatedTask);
+        return ResponseEntity.ok(mtaskService.updateTask(id, taskDetails));
     }
 
-    // Endpoint untuk mendapatkan semua task
     @GetMapping
     public ResponseEntity<List<Mtask>> getAllTasks() {
-        List<Mtask> tasks = mtaskService.getAllTasks();
-        return ResponseEntity.ok(tasks);
+        return ResponseEntity.ok(mtaskService.getAllTasks());
     }
 
-    // Endpoint untuk mendapatkan task berdasarkan status
     @GetMapping("/status/{status}")
     public ResponseEntity<List<Mtask>> getTasksByStatus(@PathVariable String status) {
-        List<Mtask> tasks = mtaskService.getTasksByStatus(status);
-        return ResponseEntity.ok(tasks);
+        return ResponseEntity.ok(mtaskService.getTasksByStatus(status));
     }
 }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task rumahku</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Task for Rumahku</h1>
+    </header>
+    <div class="container">
+        <div class="task-form">
+            <h2>Halo, Selamat Pagi!</h2>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskName">Nama Task:</label>
+                    <input type="text" id="taskName" name="taskName" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskStatus">Status Task:</label>
+                    <select id="taskStatus" name="taskStatus">
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <button type="button" onclick="createTask()">Add Task</button>
+            </form>
+        </div>
+        <div class="task-list">
+            <h2>Task List</h2>
+            <table id="taskTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    async function createTask() {
+    const taskName = document.getElementById('taskName').value;
+    const taskStatus = document.getElementById('taskStatus').value;
+
+    if (taskName.trim() === "") {
+        alert('Task name is required');
+        return;
+    }
+
+    // Kirim data ke backend
+    try {
+        const response = await fetch('/api/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: taskName, status: taskStatus })
+        });
+
+        if (response.ok) {
+            // Bersihkan formulir setelah berhasil
+            document.getElementById('taskForm').reset();
+            // Refresh daftar tugas
+            fetchTasks();
+        } else {
+            alert('Failed to create task');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while creating the task');
+    }
+}
+
+</script>
+</html>
